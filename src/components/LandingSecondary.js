@@ -4,8 +4,6 @@ import { MdMyLocation } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import imgOne from '../assets/img-app-vertical.png';
 import '../assets/styles/NewLoginInterface.css';
-import CryptoJS from 'crypto-js';
-import { v4 as uuidv4 } from 'uuid';
 import BarSpinner from '../components/BarSpinner';
 
 export default function NewLogin() {
@@ -20,21 +18,14 @@ export default function NewLogin() {
     const [ selectedLocation ] = useState('Location');
     const [ typedLocation, setTypedLocation ] = useState(false);
 
-    const [ ipDetails, setIpDetails ] = useState({});
-
     const handleCategoryChange = (event) => {
-        const newCategory = event.target.value;
-        setCategory(newCategory);
-        sessionStorage.setItem('Biz_Solutions_categorySelected', JSON.stringify(newCategory));
+        setCategory(event.target.value);
     };
 
     const handleLocationInput = (event) => {
-        const newLocation = event.target.value;
-        setLocation(newLocation);
+        setLocation(event.target.value);
         setTypedLocation(true);
-        sessionStorage.setItem('Biz_Solutions_locationSelected', JSON.stringify(newLocation));
     };
-    
 
     const getUserLocation = () => {
         setLoading(true);
@@ -55,7 +46,6 @@ export default function NewLogin() {
               setLocation('My Current Location')
               setUserCoordinates(coords);
               sessionStorage.setItem('userCoordinates', JSON.stringify(coords));
-              sessionStorage.setItem('Biz_Solutions_coordsSelected', JSON.stringify(coords));
               setLoading(false);
             },
             (error) => {
@@ -68,61 +58,12 @@ export default function NewLogin() {
           setLoading(false);
         }
     };
-
-    const decryptData = (encryptedData, secretKey) => {
-        const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
-        const originalData = bytes.toString(CryptoJS.enc.Utf8);
-        return JSON.parse(originalData);
-    };
-
-    const getDecryptedIPDetails = () => {
-        const encryptedData = sessionStorage.getItem('BizSolutions');
-        if (!encryptedData) return null;
-      
-        const secretKey = 'BizSolutionsFeb062024'; // Use the same key used for encryption
-        return decryptData(encryptedData, secretKey);
-      };
-      
-      // Example usage
-      const ipDetails1 = getDecryptedIPDetails();
-      if (ipDetails1) {
-        // console.log('Decrypted IP Details:', ipDetails1);
-      }      
-
-    const fetchIPDetails = async () => {
-        try {
-          const response = await fetch('http://ip-api.com/json');
-          const data = await response.json();
-          setIpDetails(data);
-           // console.log(data);
-      
-          // Encrypting the data
-          const secretKey = 'BizSolutionsFeb062024'; // Replace with your secure key
-          const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
-      
-          // Storing encrypted data in sessionStorage
-          sessionStorage.setItem('Biz_Solutions_2024', encryptedData);
-        } catch (error) {
-          console.error('Error fetching IP details:', error);
-          setIpDetails({});
-        }
-      };
-    
-    function storeUuidInSessionStorage() {
-        const uuid = uuidv4();
-        const dateTimeNow = new Date().toISOString();
-        const uuidWithDateTime = `${uuid}_${dateTimeNow}`;
-        sessionStorage.setItem('Biz_Solutions_DateTimeVisit', uuidWithDateTime);
-    }
-      
     
     const handleSubmit = (event) => {
-        event.preventDefault();
-        fetchIPDetails(); 
-        storeUuidInSessionStorage();
+        event.preventDefault(); 
 
         if (typedLocation === true) {
-            // console.log("Using manually entered location:", location);
+            console.log("Using manually entered location:", location);
             const queryParams = new URLSearchParams({
                 category: category,
                 location: location
