@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import imgOne from '../assets/img-app-vertical.png';
 import '../assets/styles/NewLoginInterface.css';
 import CryptoJS from 'crypto-js';
+import { v4 as uuidv4 } from 'uuid';
 import BarSpinner from '../components/BarSpinner';
 
 export default function NewLogin() {
@@ -106,12 +107,19 @@ export default function NewLogin() {
           setIpDetails({});
         }
       };
+    
+    function storeUuidInSessionStorage() {
+        const uuid = uuidv4();
+        const dateTimeNow = new Date().toISOString();
+        const uuidWithDateTime = `${uuid}_${dateTimeNow}`;
+        sessionStorage.setItem('Biz_Solutions_DateTimeVisit', uuidWithDateTime);
+    }
       
     
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchIPDetails(); 
-
+        storeUuidInSessionStorage();
 
         if (typedLocation === true) {
             // console.log("Using manually entered location:", location);
