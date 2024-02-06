@@ -1,0 +1,49 @@
+.landing-container {
+    padding: 20px; /* Adjust as needed */
+}
+
+.flex-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+}
+
+.flex-col {
+    flex: 1; 
+    padding: 10px; 
+}
+
+.image-col {
+    max-width: 300px; 
+}
+
+.content-col {
+    max-width: 600px;
+}
+
+@media (max-width: 768px) {
+    .flex-row {
+        flex-direction: column;
+    }
+}
+
+.image-size-three {
+    height: 250px;
+    width: 300px;
+    max-width: 400px;
+}
+
+.paragraph-text {
+    font-size: 14px;
+    text-align: start;
+}
+
+.title {
+    font-size: 3rem;
+    text-align: start;
+}
+
+.title:hover {
+    color: orange;
+}

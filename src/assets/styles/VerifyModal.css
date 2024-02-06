@@ -1,0 +1,76 @@
+.modalTitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: large;
+}
+
+.modalBodyDivOne {
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.modalBodyDivOne span {
+    font-weight: 900;
+    color: gray;
+}
+
+.modalBodyDivCheck {
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+}
+
+.modalBodyDivTwo {
+    font-family: 'Roboto', sans-serif;
+    font-size: large;
+}
+
+.flexContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding-top: 25px; 
+    padding-bottom: 25px; */
+}
+
+.dashed-line {
+    border-top: 5px dashed #000; 
+    border-bottom: none;       
+}
+
+.resized-image {
+    width: 300px; 
+    height: auto;  
+}
+
+.note {
+    font-size: .8rem;
+}
+
+.sales-team, .bizsolutions {
+    color: #FF851A;
+}
+
+.content-wrapper {
+    display: flex;
+    align-items: center; /* Align vertically */
+    justify-content: center; /* Align horizontally */
+    gap: 20px; /* Optional: adds space between the image and the text */
+}
+
+/* Additional styles for responsiveness if needed */
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+}
+
+.modal-header-sm {
+    display: none;
+}
+
+@media (max-width: 576px) { /* Bootstrap's sm breakpoint */
+    .modal-header-sm {
+        display: block;
+    }
+}
